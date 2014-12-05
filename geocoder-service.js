@@ -1,6 +1,6 @@
 (function(angular){
 	'use strict';
-	angular.module('geocoder-service')
+	angular.module('geocoder-service', [])
 	.factory('geocoderService', [
 		'$document',
 		'$window',
@@ -13,7 +13,7 @@
 		var isloading = false,
 			finishedLoading = false,
 			callbacks = [],
-			geocoder;;
+			geocoder;
 
 		$window.__initMaps = function() {
 			finishedLoading = true;
