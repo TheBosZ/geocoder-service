@@ -24,14 +24,29 @@
 			delete $window.__initMaps;
 		};
 
-		var buildCallback = function(defer, address) {
-			geocoder.geocode({address: address}, function(result, status){
-				if (status === $window.google.maps.GeocoderStatus.OK && result.length > 0) {
-					defer.resolve(result[0].geometry.location);
+		var geocodeAddress = function(address) {
+			var callback = function(address, defer) {
+				geocoder.geocode({address: address}, function(result, status){
+					if (status === $window.google.maps.GeocoderStatus.OK && result.length > 0) {
+						defer.resolve(result[0]);
+					} else {
+						defer.reject();
+					}
+				});
+			};
+			var defer = $q.defer();
+			
+				if (!finishedLoading) {
+					var d = $q.defer();
+					callbacks.push(d);
+					d.promise.then(function(){
+						callback(address, defer);
+					});
+					loadGeocoder();
 				} else {
-					defer.reject();
+					callback(address, defer);
 				}
-			});
+			return defer.promise;	
 		};
 
 		var loadGeocoder = function() {
@@ -45,22 +60,16 @@
 			script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&callback=__initMaps';
 			document.body.appendChild(script);
 		};
+		var obj = {};
 
-		return {
-			getLatLong: function(address) {
-				var defer = $q.defer();
-				if (!finishedLoading) {
-					var d = $q.defer();
-					callbacks.push(d);
-					d.promise.then(function(){
-						buildCallback(defer, address);
-					});
-					loadGeocoder();
-				} else {
-					buildCallback(defer, address);
-				}
-				return defer.promise;
-			}
+		obj.getLatLong = function(address) {
+			return obj.getLocation(address).then(function(result){
+				return result.geometry.location;
+			});
 		};
+		obj.getLocation = function(address) {
+			return geocodeAddress(address);
+		};
+		return obj;
 	}]);
 })(angular);
