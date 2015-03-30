@@ -1,6 +1,6 @@
 {
 	"name": "geocoder-service",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"private": false,
 	"dependencies": {
 		"angular": "~1.2.23"
@@ -11,7 +11,7 @@
 		".gitignore",
 		".git/*",
 		"LICENSE",
-		"README"
+		"README.md"
 	],
 	"main": [
 		"geocoder-service.js",
