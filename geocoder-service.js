@@ -63,7 +63,7 @@
 		var obj = {};
 
 		obj.getLatLong = function(address) {
-			return obj.getLocation(address).then(function(results){
+			return obj.getLocations(address).then(function(results){
 				if (results.length > 0) {
 					return results[0].geometry.location;
 				}
