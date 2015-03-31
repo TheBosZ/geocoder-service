@@ -26,9 +26,9 @@
 
 		var geocodeAddress = function(address) {
 			var callback = function(address, defer) {
-				geocoder.geocode({address: address}, function(result, status){
-					if (status === $window.google.maps.GeocoderStatus.OK && result.length > 0) {
-						defer.resolve(result[0]);
+				geocoder.geocode({address: address}, function(results, status){
+					if (status === $window.google.maps.GeocoderStatus.OK && results.length > 0) {
+						defer.resolve(results);
 					} else {
 						defer.reject();
 					}
@@ -63,11 +63,14 @@
 		var obj = {};
 
 		obj.getLatLong = function(address) {
-			return obj.getLocation(address).then(function(result){
-				return result.geometry.location;
+			return obj.getLocation(address).then(function(results){
+				if (results.length > 0) {
+					return results[0].geometry.location;
+				}
+				return null;
 			});
 		};
-		obj.getLocation = function(address) {
+		obj.getLocations = function(address) {
 			return geocodeAddress(address);
 		};
 		return obj;
