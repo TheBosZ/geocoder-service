@@ -11,7 +11,7 @@ Include as a dependency in your AngularJS app:
 angular.module('yourApp', ['geocoder-service']);
 ````
 
-Make sure to include the geocoder-service.min.js file, either in your build process or directly using a script tag.
+Make sure to include the geocoder-service.js file, either in your build process or directly using a script tag.
 
 #### Usage
 
@@ -40,5 +40,5 @@ getLatLong:
 * Arguments: ````address````, type: String
   * Address to look up
 * Return: promise
-  * When promise is resolved successfully, the value passed to the success function is a [Google Maps LatLng object](https://developers.google.com/maps/documentation/javascript/examples/map-latlng-literal)
+  * When promise is resolved successfully, the argument passed to the success function is a [Google Maps LatLng object](https://developers.google.com/maps/documentation/javascript/examples/map-latlng-literal)
   * When promise is resolved with an error, that means the service failed to geocode the given address

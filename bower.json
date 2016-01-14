@@ -1,9 +1,9 @@
 {
 	"name": "geocoder-service",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"private": false,
 	"dependencies": {
-		"angular": "~1.2.23"
+		"angular": ">=1.2.23"
 	},
 	"ignore": [
 		"Gruntfile.js",
@@ -13,8 +13,5 @@
 		"LICENSE",
 		"README.md"
 	],
-	"main": [
-		"geocoder-service.js",
-		"geocoder-service.min.js"
-	]
+	"main":"geocoder-service.js"
 }
